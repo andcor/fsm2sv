@@ -375,7 +375,7 @@ class SVVisitor:
                         else:
                             dump(" else begin\n")
                             self.idx += 1
-                    assert trans.dst_state in fsm.states
+                    assert trans.dst_state in fsm.states, f"Destination state {trans.dst_state} not found"
                     dump(f"{tab()}state_d = {trans.dst_state};\n")
                     if trans.mealy_outputs:
                         for mealy, value in trans.mealy_outputs.items():
