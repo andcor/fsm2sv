@@ -362,7 +362,7 @@ class SVVisitor:
                     mooresplits = moore.split('[')
                     assert mooresplits[0] in fsm.outputs, \
                         f"Output {moore} not found"
-                    dst = mooresplits[0] + "_d" + mooresplits[1] if fsm.outputs[moore.split('[')[0]].reg else moore
+                    dst = mooresplits[0] + "_d[" + mooresplits[1] if fsm.outputs[moore.split('[')[0]].reg else moore
                 else:
                     assert moore in fsm.outputs, f"Output {moore} not found"
                     dst = moore + "_d" if fsm.outputs[moore].reg else moore
