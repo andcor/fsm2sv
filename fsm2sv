@@ -586,7 +586,11 @@ class FSM:   # pylint: disable=too-many-instance-attributes
         for stmt in stmts:
             outs = list(map(str.strip, stmt.split("=")))
             assert len(outs) == 2
-            assert outs[0] in self.outputs, f"Output {outs[0]} not found"
+            if outs[0].find('[') != -1:
+                assert outs[0].split('[')[0] in self.outputs, \
+                    f"Output {outs[0]} not found"
+            else:
+                assert outs[0] in self.outputs, f"Output {outs[0]} not found"
             outputs[outs[0]] = outs[1]
         return outputs
 
