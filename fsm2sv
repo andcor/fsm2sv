@@ -358,7 +358,13 @@ class SVVisitor:
             dump(f"{tab()}{state}: begin\n")
             self.idx += 1
             for moore, value in fsm.states[state].moore_outputs.items():
-                dst = moore + "_d" if fsm.outputs[moore].reg else moore
+                if moore.find('[') != -1:
+                    assert moore.split('[')[0] in fsm.outputs, \
+                        f"Output {moore} not found"
+                    dst = moore + "_d" if fsm.outputs[moore.split('[')[0]].reg else moore
+                else:
+                    assert moore in fsm.outputs, f"Output {moore} not found"
+                    dst = moore + "_d" if fsm.outputs[moore].reg else moore
                 dump(f"{tab()}{dst} = {value};\n")
             has_condition = False
             for trans in fsm.transitions:
