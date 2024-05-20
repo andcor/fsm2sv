@@ -641,7 +641,7 @@ class FSM:   # pylint: disable=too-many-instance-attributes
                         self.transitions.append(trans)
                     # Case 2: Moore's output: <>
                     elif elems[0].startswith('<'):
-                        assert len(elems) == 1
+                        assert len(elems) == 1, f"Number of elements must be equal to one, got {len(elems)}, elems={elems}"
                         moore_outs = self.parse_output_line(elems[0])
                     # Case 3: transition with no input: just next state
                     else:
